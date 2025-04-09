@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { use, useState } from 'react'
 import './App.css'
 
 
@@ -27,6 +27,14 @@ const articles = [
 
 function App() {
 
+  const [newArticle, setNewArticle] = useState('')
+
+
+  const articleSubmitt = (event) => {
+    event.preventDefault();
+    console.log("Tasto premuto")
+  }
+
   return (
     <>
       <ul>
@@ -34,6 +42,15 @@ function App() {
           <li key={article.id}>{article.title}</li>
         ))}
       </ul>
+
+      <form onSubmit={articleSubmitt}>
+        <input type="text"
+          value={newArticle}
+          onChange={(e => setNewArticle(e.target.value))} />
+        <button>Invia</button>
+      </form>
+
+
     </>
   )
 }
