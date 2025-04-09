@@ -27,18 +27,30 @@ const articles = [
 
 function App() {
 
-  const [newArticle, setNewArticle] = useState('')
+  const [articlesItems, setArticles] = useState(articles)
+  let [newArticle, setNewArticle] = useState('')
 
 
   const articleSubmitt = (event) => {
     event.preventDefault();
-    console.log("Tasto premuto")
+
+
+    if (newArticle.trim() === '') return console.error("Non sono stati inseriti dati");
+
+    const newArticleObject = {
+      id: Math.max(...articlesItems.map(article => article.id)) + 1,
+      title: newArticle
+    };
+
+
+    setArticles([...articlesItems, newArticleObject]);
+    setNewArticle('');
   }
 
   return (
     <>
       <ul>
-        {articles.map(article => (
+        {articlesItems.map(article => (
           <li key={article.id}>{article.title}</li>
         ))}
       </ul>
